@@ -20,7 +20,12 @@ opts = OptionParser.new do |opts|
 |               |
 |               +
 +---------------v 
-USAGE:
+Usage: omakase [options]
+
+Example:
+  omakase -s 640 -c yellow -o ~/Desktop
+
+Options: 
 BANNER
 
   opts.on( "-s [SIZE]px", "--size [SIZE]px", "Size x Size. unit:px, default:960px" ) do |opt|
