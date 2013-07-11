@@ -1,0 +1,49 @@
+#!/usr/bin/env ruby
+# -*- coding: utf-8 -*-
+
+$LOAD_PATH.unshift(File.dirname(__FILE__) + '/../lib')
+
+require "omakasepng"
+require "optparse"
+
+options = {}
+opts = OptionParser.new do |opts|
+  opts.banner = <<-BANNER
++---------------+
+|               |
+|               |
++---------------|
+|               |
+|               |
+|  OMAKASE PNG  | generate png with ja.wikipedia.org omakase page
+|               |
+|               |
+|               +
++---------------v 
+USAGE:
+BANNER
+
+  opts.on( "-s [SIZE]px", "--size [SIZE]px", "Size x Size. unit:px, default:960px" ) do |opt|
+    options[:size] = opt.to_i
+  end
+  
+  opts.on( "-o [OUTPUT_PATH]", "--out [OUTPUT_PATH]", "Output path. default: ./pngout" ) do |opt|
+    options[:out_path] = File.expand_path(opt)
+  end
+
+  opts.on( "-c [COLOR]", "--color [COLOR]", "Color Bar. default:random, [cyan,magenta,yellow,green,red,blue]" ) do |opt|
+    options[:color_bar] = opt.to_sym
+  end
+end
+
+opts.parse!(ARGV)
+
+
+class SetSizeError < StandardError  
+end
+
+unless (4..5120).include? options[:size]
+  raise SetSizeError, "invalid size! minimum 4px, maximum 5120px"
+end
+
+Omakasepng::Generator.new(options).export
