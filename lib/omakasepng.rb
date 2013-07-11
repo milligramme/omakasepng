@@ -45,8 +45,8 @@ module Omakasepng
 
 
     def raw_data
-      border_line = (@height/4).to_i
-      body_line = @height - border_line
+      bar_line = (@height/4).to_i
+      body_line = @height - bar_line
       
       # rgbの配列
       rgb_ary = txt2rgb
@@ -59,12 +59,12 @@ module Omakasepng
         body = rgb_ary[0..body_line*@width]
       end
 
-      # 原色ボーダー
+      # 原色バー
       vc = @color_bar == :random ? VIVID_COLOR.values.sample : @color_bar
-      border = (0...@width).map { |e| vc }
+      bar = (0...@width).map { |e| vc }
 
-      # ボーダーとおまかせwikipedia
-      [border]*border_line + slice_array(body, @width)
+      # バーとおまかせ
+      [bar]*bar_line + slice_array(body, @width)
     end
     
 
